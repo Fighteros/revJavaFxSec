@@ -30,8 +30,14 @@ public class GuiJavaApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         GridPane mainPane = createRegForm();
+        GridPane landingPane = createRegForm(); 
+        
         addRegUi(mainPane);
+        addSignInUi(landingPane);
+        
         SignUpScene = new Scene(mainPane, 670, 320);
+        SignInScene = new Scene(landingPane ,670, 320);
+        
         primaryStage.setTitle("Register now");
         primaryStage.setScene(SignUpScene);
         primaryStage.show();
@@ -64,10 +70,12 @@ public class GuiJavaApp extends Application {
         signUpPanee.addRow(4, btSubmit);
         
         */
+    
+    // Font name Courier New Bold
    
     public void addRegUi(GridPane signUpPanee) {
         Label lbformName = new Label("Registeraion Form");
-        lbformName.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 34));
+        lbformName.setFont(Font.font("Courier New Bold", FontWeight.BOLD, FontPosture.REGULAR, 34));
         Label lbFullName = new Label("FullName: ");
         Label lbEmail = new Label("Email: ");
         Label lbPass = new Label("Password: ");
@@ -78,19 +86,47 @@ public class GuiJavaApp extends Application {
 
         Button btSubmit = new Button("Submit");
         // get from apputils the function that returns the primaryStage
-        btSubmit.setOnAction(event -> appUtils.getStage(event).setScene(SignInScene));
-        btSubmit.setMaxSize(100, 20);
+        btSubmit.setOnAction(event -> {
+            appUtils.getStage(event).setScene(SignInScene);
+        });
+        btSubmit.setMaxSize(220, 30);
+        btSubmit.setPrefHeight(320);
+        
 
         signUpPanee.add(lbformName, 0, 0, 2, 1);
         signUpPanee.addRow(1, lbFullName, tfFullName);
         signUpPanee.addRow(2, lbEmail, tfEmail);
         signUpPanee.addRow(3, lbPass, tfPassword);
-        signUpPanee.add(btSubmit, 0, 4, 2, 1);
+        signUpPanee.add(btSubmit, 1, 4, 2, 1);
     }
     
     // add signIn UI
     public void addSignInUi(GridPane signInPanee){
-        
+       Label lbFormName = new Label("Sign in");
+       lbFormName.setFont(Font.font("Courier New Bold", FontWeight.BOLD, FontPosture.REGULAR, 34));
+       
+       TextField tfEmail = new TextField();
+       PasswordField pfPassword  = new PasswordField();
+       
+       tfEmail.setPromptText("Email");
+       pfPassword.setPromptText("Password");
+       
+       Button btSignIn = new Button("Sign In");
+       Button btSignUp = new Button("Sign Up");
+       
+       btSignIn.setMaxSize(150,  35);
+       btSignIn.setPrefSize(320, 50);
+       btSignUp.setPrefSize(320, 50);
+       btSignUp.setMaxSize(150, 30);
+       
+       
+       btSignUp.setOnAction(e -> appUtils.getStage(e).setScene(SignUpScene));
+       
+       signInPanee.add(lbFormName, 0, 0, 2, 1);
+       signInPanee.addRow(1, tfEmail);
+       signInPanee.addRow(2, pfPassword);
+       signInPanee.add(btSignIn, 0, 3, 2, 1);
+       signInPanee.add(btSignUp, 0, 4, 2, 1);
     }
 
     /**
